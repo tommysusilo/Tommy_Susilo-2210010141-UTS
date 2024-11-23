@@ -2,7 +2,9 @@
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Date;
@@ -24,6 +26,8 @@ public class proses_db {
     
     Connection con;
     PreparedStatement pst;
+    ResultSet rs;
+    Statement st;
     
     public proses_db() {
          try {
@@ -65,5 +69,19 @@ public class proses_db {
           
         
     }
+    
+    public ResultSet lihat(){
+        String sql ="select * from tb_agenda";
+     try {
+         st = con.createStatement();
+         rs = st.executeQuery(sql);
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return rs;
+        
+    }
+    
+    
     
 }

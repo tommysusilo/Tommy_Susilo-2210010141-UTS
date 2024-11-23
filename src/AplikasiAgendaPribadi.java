@@ -1,8 +1,10 @@
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,6 +24,11 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
     public AplikasiAgendaPribadi() {
         db = new proses_db();
         initComponents();
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -217,6 +224,11 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btn_tambahActionPerformed
 
@@ -228,6 +240,22 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_hapusActionPerformed
 
+    public void showTable() throws SQLException{
+        tbl = new DefaultTableModel(new String[]{"Nama Agenda","Tanggal","Tempat"},0);
+        ResultSet rs;
+        rs = db.lihat();
+        while(rs.next()){
+            tbl.addRow(new Object[]{rs.getString("nama_agenda"),
+                rs.getString("tanggal"),
+                rs.getString("tempat")
+            });
+        }
+        
+        tblAgenda.setModel(tbl);
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -264,6 +292,7 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
     }
     
     proses_db db;
+    DefaultTableModel tbl;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_edit;
