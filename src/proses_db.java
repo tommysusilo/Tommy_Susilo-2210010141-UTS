@@ -47,22 +47,23 @@ public class proses_db {
      
 
     void tambah(String id_agenda, String agenda, Date tanggal, String tempat) throws SQLException {
-         String sql = "insert into tb_agenda (nama_agenda, tanggal, tempat) values (?, ?, ?)";
+         String sql = "insert into tb_agenda (id_agenda,nama_agenda, tanggal, tempat) values (?,?, ?, ?)";
 
     pst = con.prepareStatement(sql);
 
     // Set parameter untuk query
+    pst.setString(1, id_agenda);
 
-    pst.setString(1, agenda);
+    pst.setString(2, agenda);
 
     // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
     if (tanggal != null) {
-        pst.setDate(2, new java.sql.Date(tanggal.getTime()));  // Konversi menggunakan getTime()
+        pst.setDate(3, new java.sql.Date(tanggal.getTime()));  // Konversi menggunakan getTime()
     } else {
-        pst.setNull(2, java.sql.Types.DATE); // Jika tanggal null, set null pada parameter tanggal
+        pst.setNull(3, java.sql.Types.DATE); // Jika tanggal null, set null pada parameter tanggal
     }
 
-    pst.setString(3, tempat);
+    pst.setString(4, tempat);
 
      // Menjalankan query
      int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
@@ -80,6 +81,17 @@ public class proses_db {
      }
      return rs;
         
+    }
+    
+    public void hapus(String id){
+     try {
+         String sql ="delete from tb_agenda where id_agenda = ?";
+         pst = con.prepareStatement(sql);
+         pst.setString(1,id);
+         int executeUpdate = pst.executeUpdate();
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
     
     
