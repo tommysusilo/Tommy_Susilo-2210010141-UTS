@@ -259,6 +259,23 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
+        String id_agenda,agenda,tempat;
+        java.util.Date tanggal;
+         id_agenda = no_agenda.getText();
+        agenda = nama_agenda.getText();
+        tanggal = tgl_agenda.getDate();
+        tempat = tempat_agenda.getText();
+        try {
+            db.edit(id_agenda, agenda, tanggal, tempat);
+        } catch (SQLException ex) {
+            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed

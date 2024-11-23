@@ -95,5 +95,32 @@ public class proses_db {
     }
     
     
+      void edit(String id_agenda, String agenda, Date tanggal, String tempat) throws SQLException {
+      String sql;
+     sql = "update tb_agenda set nama_agenda=?, tanggal=?, tempat=? where id_agenda=?";
+
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+    pst.setString(4, id_agenda);
+
+    pst.setString(1, agenda);
+
+    // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
+    if (tanggal != null) {
+        pst.setDate(2, new java.sql.Date(tanggal.getTime()));  // Konversi menggunakan getTime()
+    } else {
+        pst.setNull(2, java.sql.Types.DATE); // Jika tanggal null, set null pada parameter tanggal
+    }
+
+    pst.setString(3, tempat);
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+          
+        
+    }
+    
+    
     
 }
