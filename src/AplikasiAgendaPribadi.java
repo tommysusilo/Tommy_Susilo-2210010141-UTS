@@ -1,4 +1,5 @@
 
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -6,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -50,8 +52,6 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tempat_agenda = new javax.swing.JTextField();
         tgl_agenda = new com.toedter.calendar.JDateChooser();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        nama_agenda = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblAgenda = new javax.swing.JTable();
         btn_tambah = new javax.swing.JButton();
@@ -59,6 +59,7 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
         btn_hapus = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         no_agenda = new javax.swing.JTextField();
+        nama_agenda = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -87,9 +88,11 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("TEMPAT AGENDA");
 
-        nama_agenda.setColumns(20);
-        nama_agenda.setRows(5);
-        jScrollPane1.setViewportView(nama_agenda);
+        tgl_agenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tgl_agendaKeyTyped(evt);
+            }
+        });
 
         tblAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,6 +144,17 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
                 no_agendaActionPerformed(evt);
             }
         });
+        no_agenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                no_agendaKeyTyped(evt);
+            }
+        });
+
+        nama_agenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nama_agendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,9 +172,9 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tempat_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tgl_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(no_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(no_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nama_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,15 +194,15 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(no_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel2)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(nama_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tgl_agenda, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -316,6 +330,25 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_no_agendaActionPerformed
 
+    private void nama_agendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_agendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama_agendaActionPerformed
+
+    private void no_agendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_agendaKeyTyped
+       char c = evt.getKeyChar();
+            if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                evt.consume(); // Mencegah karakter yang bukan angka
+                JOptionPane.showMessageDialog(null,
+                         "Masukkan angka yang valid!",
+                        "Error",
+                         JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_no_agendaKeyTyped
+
+    private void tgl_agendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tgl_agendaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tgl_agendaKeyTyped
+
     public void showTable() throws SQLException{
         tbl = new DefaultTableModel(new String[]{"No. Agenda","Nama Agenda","Tanggal","Tempat"},0);
         ResultSet rs;
@@ -382,11 +415,10 @@ public class AplikasiAgendaPribadi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea nama_agenda;
+    private javax.swing.JTextField nama_agenda;
     private javax.swing.JTextField no_agenda;
     private javax.swing.JTable tblAgenda;
     private javax.swing.JTextField tempat_agenda;
